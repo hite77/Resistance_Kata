@@ -2,7 +2,8 @@ package com.hiteware.resistance_kata;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * To work on unit tests, switch the Test Artifact in the Build Variants view.
@@ -14,6 +15,6 @@ public class ResistanceUnitTest {
         int columns = 5;
         Integer[][] grid = new Integer[rows][columns];
         Resistance resistance = new Resistance(grid);
-        assertEquals(resistance.leastResistanceCount(), 42);
+        assertThat(42, equalTo(resistance.leastResistanceCount()));
     }
 }
