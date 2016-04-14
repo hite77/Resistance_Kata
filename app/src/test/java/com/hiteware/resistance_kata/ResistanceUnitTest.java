@@ -15,6 +15,6 @@ public class ResistanceUnitTest {
         int columns = 5;
         Integer[][] grid = new Integer[rows][columns];
         Resistance resistance = new Resistance(grid);
-        assertThat(42, equalTo(resistance.leastResistanceCount()));
+        assertThat(resistance.leastResistanceCount(), equalTo(42));
     }
 }
