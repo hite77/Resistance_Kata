@@ -9,9 +9,11 @@ import java.util.List;
 public class Path {
     private final Integer[][] resistence_grid;
     private List<Integer> positions = new ArrayList<>();
+    private int bottomPosition;
 
     public Path(Integer[][] grid) {
         resistence_grid = grid;
+        bottomPosition = resistence_grid.length;
     }
 
     public void setStartPosition(int row) {
@@ -27,12 +29,14 @@ public class Path {
     }
 
     public void moveUp() {
-        int nextPosition = (get_last_moved_to_position_on_path() == 1) ? resistence_grid.length : get_last_moved_to_position_on_path()-1;
+        int nextPosition = (get_last_moved_to_position_on_path() == 1) ? bottomPosition
+                                                                         : get_last_moved_to_position_on_path()-1;
         positions.add(nextPosition);
     }
 
     public void moveDown() {
-        int nextPosition = (get_last_moved_to_position_on_path() == resistence_grid.length) ? 1 : get_last_moved_to_position_on_path()+1;
+        int nextPosition = (get_last_moved_to_position_on_path() == bottomPosition) ? 1
+                                                                                      : get_last_moved_to_position_on_path()+1;
         positions.add(nextPosition);
     }
 }
