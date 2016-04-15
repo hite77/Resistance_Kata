@@ -29,13 +29,20 @@ public class PathUnitTest {
         grid_five_tall[4][0] = 0; grid_five_tall[4][1] = 0;
     }
 
+    public List<Integer> construct_positions_list(Integer... args) {
+        List<Integer> positions = new ArrayList<>();
+        for (Integer arg : args) {
+            positions.add(arg);
+        }
+        return positions;
+    }
+
     @Test
     public void can_store_start_position_and_recall_position() {
         Path path = new Path(grid_five_tall);
-        path.setStartPosition(3);
-        List<Integer> positions = new ArrayList<>();
-        positions.add(3);
-        assertThat(path.recallPositions(), equalTo(positions));
+        int row_position = 3;
+        path.setStartPosition(row_position);
+        assertThat(path.recallPositions(), equalTo(construct_positions_list(row_position)));
     }
 
     @Test
@@ -43,10 +50,7 @@ public class PathUnitTest {
         Path path = new Path(grid_five_tall);
         path.setStartPosition(5);
         path.moveUp();
-        List<Integer> positions = new ArrayList<>();
-        positions.add(5);
-        positions.add(4);
-        assertThat(path.recallPositions(), equalTo(positions));
+        assertThat(path.recallPositions(), equalTo(construct_positions_list(5,4)));
     }
 
     @Test
@@ -54,9 +58,6 @@ public class PathUnitTest {
         Path path = new Path(grid_five_tall);
         path.setStartPosition(1);
         path.moveUp();
-        List<Integer> positions = new ArrayList<>();
-        positions.add(1);
-        positions.add(5);
-        assertThat(path.recallPositions(), equalTo(positions));
+        assertThat(path.recallPositions(), equalTo(construct_positions_list(1,5)));
     }
 }
