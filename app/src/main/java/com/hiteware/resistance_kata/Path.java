@@ -1,14 +1,23 @@
 package com.hiteware.resistance_kata;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created on 4/14/16.
  */
 public class Path {
-    public static void addRow(int row) {
+    private List<Integer> positions = new ArrayList<>();
 
+    public void setStartPosition(int row) {
+        positions.add(row);
     }
 
-    public int recallMoves() {
-        return 3;
+    public List<Integer> recallPositions() {
+        return positions;
+    }
+
+    public void moveUp() {
+        positions.add(4);
     }
 }
