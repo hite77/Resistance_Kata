@@ -60,4 +60,21 @@ public class PathUnitTest {
         path.moveUp();
         assertThat(path.recallPositions(), equalTo(construct_positions_list(1,5)));
     }
+
+    @Test
+    public void can_store_move_down_and_recall_position() {
+        Path path = new Path(grid_five_tall);
+        path.setStartPosition(2);
+        path.moveDown();
+        assertThat(path.recallPositions(), equalTo(construct_positions_list(2,3)));
+    }
+
+    @Test
+    public void can_move_down_wrapping_to_the_top_position() {
+        Path path = new Path(grid_five_tall);
+        path.setStartPosition(4);
+        path.moveDown();
+        path.moveDown();
+        assertThat(path.recallPositions(), equalTo(construct_positions_list(4,5,1)));
+    }
 }

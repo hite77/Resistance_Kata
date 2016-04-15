@@ -22,9 +22,17 @@ public class Path {
         return positions;
     }
 
+    private int get_last_moved_to_position_on_path() {
+        return positions.get(positions.size()-1);
+    }
+
     public void moveUp() {
-        int lastPosition = positions.get(positions.size()-1);
-        int nextPosition = (lastPosition == 1) ? resistence_grid.length: lastPosition-1;
+        int nextPosition = (get_last_moved_to_position_on_path() == 1) ? resistence_grid.length : get_last_moved_to_position_on_path()-1;
+        positions.add(nextPosition);
+    }
+
+    public void moveDown() {
+        int nextPosition = (get_last_moved_to_position_on_path() == resistence_grid.length) ? 1 : get_last_moved_to_position_on_path()+1;
         positions.add(nextPosition);
     }
 }
