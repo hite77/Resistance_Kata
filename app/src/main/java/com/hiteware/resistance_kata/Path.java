@@ -39,4 +39,8 @@ public class Path {
                                                                                       : get_last_moved_to_position_on_path()+1;
         positions.add(nextPosition);
     }
+
+    public void moveSideways() {
+        positions.add(get_last_moved_to_position_on_path());
+    }
 }
