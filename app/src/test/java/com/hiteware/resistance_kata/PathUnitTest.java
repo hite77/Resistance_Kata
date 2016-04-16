@@ -14,8 +14,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 public class PathUnitTest {
 
-    private Integer[][] grid_five_rows_tall = new Integer[5][2];
-    private Integer[][] grid_three_rows_tall = new Integer[3][2];
+    private Integer[][] grid_five_rows_tall = new Integer[5][4];
+    private Integer[][] grid_three_rows_tall = new Integer[3][3];
 
     @Before
     public void setup() {
@@ -24,17 +24,17 @@ public class PathUnitTest {
     }
 
     public void initialize_grid_five_rows_tall() {
-        grid_five_rows_tall[0][0] = 0; grid_five_rows_tall[0][1] = 0;
-        grid_five_rows_tall[1][0] = 0; grid_five_rows_tall[1][1] = 0;
-        grid_five_rows_tall[2][0] = 0; grid_five_rows_tall[2][1] = 0;
-        grid_five_rows_tall[3][0] = 0; grid_five_rows_tall[3][1] = 0;
-        grid_five_rows_tall[4][0] = 0; grid_five_rows_tall[4][1] = 0;
+        grid_five_rows_tall[0][0] = 0; grid_five_rows_tall[0][1] = 0; grid_five_rows_tall[0][2] = 0; grid_five_rows_tall[0][3] = 0;
+        grid_five_rows_tall[1][0] = 0; grid_five_rows_tall[1][1] = 0; grid_five_rows_tall[1][2] = 0; grid_five_rows_tall[1][3] = 0;
+        grid_five_rows_tall[2][0] = 0; grid_five_rows_tall[2][1] = 0; grid_five_rows_tall[2][2] = 0; grid_five_rows_tall[2][3] = 0;
+        grid_five_rows_tall[3][0] = 0; grid_five_rows_tall[3][1] = 0; grid_five_rows_tall[3][2] = 0; grid_five_rows_tall[3][3] = 0;
+        grid_five_rows_tall[4][0] = 0; grid_five_rows_tall[4][1] = 0; grid_five_rows_tall[4][2] = 0; grid_five_rows_tall[4][3] = 0;
     }
 
     private void initialize_grid_three_rows_tall() {
-        grid_three_rows_tall[0][0] = 0; grid_three_rows_tall[0][1] = 0;
-        grid_three_rows_tall[1][0] = 0; grid_three_rows_tall[1][1] = 0;
-        grid_three_rows_tall[2][0] = 0; grid_three_rows_tall[2][1] = 0;
+        grid_three_rows_tall[0][0] = 1; grid_three_rows_tall[0][1] = 2; grid_three_rows_tall[0][2] = 3;
+        grid_three_rows_tall[1][0] = 4; grid_three_rows_tall[1][1] = 5; grid_three_rows_tall[1][2] = 6;
+        grid_three_rows_tall[2][0] = 7; grid_three_rows_tall[2][1] = 8; grid_three_rows_tall[2][2] = 9;
     }
 
     public List<Integer> construct_positions_list(Integer... args) {
@@ -101,5 +101,43 @@ public class PathUnitTest {
         path.setStartPosition(2);
         path.moveSideways();
         assertThat(path.recallPositions(), equalTo(construct_positions_list(2, 2)));
+    }
+
+    @Test
+    public void copied_path_has_same_moves_and_is_not_tied_to_original_as_shallow_copy() {
+        Path original = new Path(grid_three_rows_tall);
+        original.setStartPosition(3);
+        original.moveDown();
+        Path copy = new Path(original);
+        original.moveDown();
+        assertThat(copy.recallPositions(), equalTo(construct_positions_list(3, 1)));
+    }
+
+    @Test
+    public void path_has_starting_resistance_value_of_the_row_and_first_column() {
+        Path path = new Path(grid_three_rows_tall);
+        path.setStartPosition(1);
+        assertThat(path.resistance(), equalTo(1));
+    }
+
+    @Test
+    public void path_can_add_up_its_resistance_value() {
+        Path path = new Path(grid_three_rows_tall);
+        path.setStartPosition(2);
+        path.moveDown();
+        path.moveSideways();
+        assertThat(path.resistance(), equalTo(21));
+    }
+
+    @Test
+    public void path_when_copied_still_has_correct_resistance_value() {
+        Path path = new Path(grid_three_rows_tall);
+        path.setStartPosition(3);
+        path.moveUp();
+        Path copy = new Path(path);
+        copy.moveUp();
+        path.moveSideways();
+        assertThat(copy.resistance(), equalTo(15)); //7+5+3 (3, 2, 1)
+        assertThat(path.resistance(), equalTo(18));
     }
 }
