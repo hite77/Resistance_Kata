@@ -154,7 +154,7 @@ public class PathUnitTest {
         path.moveSideways();
         path.moveDown();
         path.moveUp();
-        assertThat(path.madeIt(), equalTo(true));
+        assertThat(path.resistance_too_high(), equalTo(true));
     }
 
     @Test
@@ -163,6 +163,6 @@ public class PathUnitTest {
         path.moveSideways();
         path.moveUp();
         path.moveDown();
-        assertThat(path.madeIt(), equalTo(false));
+        assertThat(path.resistance_too_high(), equalTo(false));
     }
 }

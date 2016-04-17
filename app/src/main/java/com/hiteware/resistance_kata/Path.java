@@ -12,7 +12,7 @@ public class Path {
     private int bottomPosition;
     private int resistance = 0;
     private int currentColumn = 2;
-    private boolean resistance_to_high = false;
+    private boolean resistance_too_high = false;
 
     public Path(Integer[][] grid, int startRow) {
         resistance_grid = grid;
@@ -27,7 +27,7 @@ public class Path {
         bottomPosition = resistance_grid.length;
         this.resistance = original.resistance;
         this.currentColumn = original.currentColumn;
-        this.resistance_to_high = original.resistance_to_high;
+        this.resistance_too_high = original.resistance_too_high;
     }
 
     public List<Integer> recallPositions() {
@@ -43,7 +43,7 @@ public class Path {
            return true;
        }
        else {
-            resistance_to_high = true;
+            resistance_too_high = true;
             return false;
         }
     }
@@ -69,7 +69,7 @@ public class Path {
     }
 
     public void only_update_positions_if_less_than_or_equal_to_50(int position) {
-        if (!resistance_to_high && add_new_resistance_when_less_than_or_equal_to_50(position))
+        if (!resistance_too_high && add_new_resistance_when_less_than_or_equal_to_50(position))
         {
             positions.add(position);
         }
@@ -79,7 +79,7 @@ public class Path {
         return resistance;
     }
 
-    public boolean madeIt() {
-        return !resistance_to_high;
+    public boolean resistance_too_high() {
+        return !resistance_too_high;
     }
 }
