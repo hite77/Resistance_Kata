@@ -78,4 +78,8 @@ public class Path {
     public int resistance() {
         return resistance;
     }
+
+    public boolean madeIt() {
+        return !resistance_to_high;
+    }
 }

@@ -147,4 +147,22 @@ public class PathUnitTest {
         path.moveDown();
         assertThat(path.resistance(), equalTo(48));
     }
+
+    @Test
+    public void when_total_resistance_is_50_or_less_and_has_made_it_across_path_returns_true() {
+        Path path = new Path(grid_five_rows_tall, 1);
+        path.moveSideways();
+        path.moveDown();
+        path.moveUp();
+        assertThat(path.madeIt(), equalTo(true));
+    }
+
+    @Test
+    public void when_total_resistance_is_greater_than_50_and_does_not_make_it_returns_false() {
+        Path path = new Path(grid_five_rows_tall, 1);
+        path.moveSideways();
+        path.moveUp();
+        path.moveDown();
+        assertThat(path.madeIt(), equalTo(false));
+    }
 }
