@@ -13,9 +13,11 @@ public class Path {
     private int resistance = 0;
     private int currentColumn = 2;
 
-    public Path(Integer[][] grid) {
+    public Path(Integer[][] grid, int startRow) {
         resistance_grid = grid;
         bottomPosition = resistance_grid.length;
+        positions.add(startRow);
+        resistance = resistance_grid[startRow-1][0];
     }
 
     public Path(Path original) {
@@ -24,11 +26,6 @@ public class Path {
         bottomPosition = resistance_grid.length;
         this.resistance = original.resistance;
         this.currentColumn = original.currentColumn;
-    }
-
-    public void setStartPosition(int row) { //refactor start position as part of initializer...
-        positions.add(row);
-        resistance = resistance_grid[row-1][0];
     }
 
     public List<Integer> recallPositions() {

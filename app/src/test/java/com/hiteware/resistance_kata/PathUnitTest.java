@@ -47,40 +47,35 @@ public class PathUnitTest {
 
     @Test
     public void can_store_start_position_and_recall_position() {
-        Path path = new Path(grid_five_rows_tall);
         int row_position = 3;
-        path.setStartPosition(row_position);
+        Path path = new Path(grid_five_rows_tall, row_position);
         assertThat(path.recallPositions(), equalTo(construct_positions_list(row_position)));
     }
 
     @Test
     public void can_store_a_move_up_and_recall_positions() {
-        Path path = new Path(grid_five_rows_tall);
-        path.setStartPosition(5);
+        Path path = new Path(grid_five_rows_tall, 5);
         path.moveUp();
         assertThat(path.recallPositions(), equalTo(construct_positions_list(5,4)));
     }
 
     @Test
     public void can_wrap_around_the_top_to_bottom_position() {
-        Path path = new Path(grid_five_rows_tall);
-        path.setStartPosition(1);
+        Path path = new Path(grid_five_rows_tall, 1);
         path.moveUp();
         assertThat(path.recallPositions(), equalTo(construct_positions_list(1,5)));
     }
 
     @Test
     public void can_store_move_down_and_recall_position() {
-        Path path = new Path(grid_five_rows_tall);
-        path.setStartPosition(2);
+        Path path = new Path(grid_five_rows_tall, 2);
         path.moveDown();
         assertThat(path.recallPositions(), equalTo(construct_positions_list(2,3)));
     }
 
     @Test
     public void can_move_down_wrapping_to_the_top_position() {
-        Path path = new Path(grid_five_rows_tall);
-        path.setStartPosition(4);
+        Path path = new Path(grid_five_rows_tall, 4);
         path.moveDown();
         path.moveDown();
         assertThat(path.recallPositions(), equalTo(construct_positions_list(4,5,1)));
@@ -88,8 +83,7 @@ public class PathUnitTest {
 
     @Test
     public void can_move_up_and_down_wrapping_both_ways() {
-        Path path = new Path(grid_three_rows_tall);
-        path.setStartPosition(3);
+        Path path = new Path(grid_three_rows_tall, 3);
         path.moveDown();
         path.moveUp();
         assertThat(path.recallPositions(), equalTo(construct_positions_list(3,1,3)));
@@ -97,16 +91,14 @@ public class PathUnitTest {
 
     @Test
     public void can_move_sideways() {
-        Path path = new Path(grid_three_rows_tall);
-        path.setStartPosition(2);
+        Path path = new Path(grid_three_rows_tall, 2);
         path.moveSideways();
         assertThat(path.recallPositions(), equalTo(construct_positions_list(2, 2)));
     }
 
     @Test
     public void copied_path_has_same_moves_and_is_not_tied_to_original_as_shallow_copy() {
-        Path original = new Path(grid_three_rows_tall);
-        original.setStartPosition(3);
+        Path original = new Path(grid_three_rows_tall, 3);
         original.moveDown();
         Path copy = new Path(original);
         original.moveDown();
@@ -115,15 +107,13 @@ public class PathUnitTest {
 
     @Test
     public void path_has_starting_resistance_value_of_the_row_and_first_column() {
-        Path path = new Path(grid_three_rows_tall);
-        path.setStartPosition(1);
+        Path path = new Path(grid_three_rows_tall, 1);
         assertThat(path.resistance(), equalTo(1));
     }
 
     @Test
     public void path_can_add_up_its_resistance_value() {
-        Path path = new Path(grid_three_rows_tall);
-        path.setStartPosition(2);
+        Path path = new Path(grid_three_rows_tall, 2);
         path.moveDown();
         path.moveSideways();
         assertThat(path.resistance(), equalTo(21));
@@ -131,13 +121,12 @@ public class PathUnitTest {
 
     @Test
     public void path_when_copied_still_has_correct_resistance_value() {
-        Path path = new Path(grid_three_rows_tall);
-        path.setStartPosition(3);
+        Path path = new Path(grid_three_rows_tall, 3);
         path.moveUp();
         Path copy = new Path(path);
         copy.moveUp();
         path.moveSideways();
-        assertThat(copy.resistance(), equalTo(15)); //7+5+3 (3, 2, 1)
+        assertThat(copy.resistance(), equalTo(15));
         assertThat(path.resistance(), equalTo(18));
     }
 }
