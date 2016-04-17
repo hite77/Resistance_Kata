@@ -50,4 +50,14 @@ public class ComputeAllPathsTest {
         expected_path.moveSideways();
         assertTrue(paths_are_the_same(current_path, expected_path));
     }
+
+    @Test
+    public void once_path_is_incremented_it_will_be_on_first_row_going_up() {
+        ComputeAllPaths computeAllPaths = new ComputeAllPaths(grid_two_by_two);
+        computeAllPaths.calculate_next_path();
+        Path current_path = computeAllPaths.getCurrentPath();
+        Path expected_path = new Path(grid_two_by_two,1);
+        expected_path.moveUp();
+        assertTrue(paths_are_the_same(current_path, expected_path));
+    }
 }
