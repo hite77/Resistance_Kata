@@ -24,11 +24,11 @@ public class PathUnitTest {
     }
 
     public void initialize_grid_five_rows_tall() {
-        grid_five_rows_tall[0][0] = 0; grid_five_rows_tall[0][1] = 0; grid_five_rows_tall[0][2] = 0; grid_five_rows_tall[0][3] = 0;
-        grid_five_rows_tall[1][0] = 0; grid_five_rows_tall[1][1] = 0; grid_five_rows_tall[1][2] = 0; grid_five_rows_tall[1][3] = 0;
-        grid_five_rows_tall[2][0] = 0; grid_five_rows_tall[2][1] = 0; grid_five_rows_tall[2][2] = 0; grid_five_rows_tall[2][3] = 0;
-        grid_five_rows_tall[3][0] = 0; grid_five_rows_tall[3][1] = 0; grid_five_rows_tall[3][2] = 0; grid_five_rows_tall[3][3] = 0;
-        grid_five_rows_tall[4][0] = 0; grid_five_rows_tall[4][1] = 0; grid_five_rows_tall[4][2] = 0; grid_five_rows_tall[4][3] = 0;
+        grid_five_rows_tall[0][0] = 20; grid_five_rows_tall[0][1] = 28; grid_five_rows_tall[0][2] = 10; grid_five_rows_tall[0][3] = 1;
+        grid_five_rows_tall[1][0] = 0;  grid_five_rows_tall[1][1] = 0;  grid_five_rows_tall[1][2] = 1;  grid_five_rows_tall[1][3] = 0;
+        grid_five_rows_tall[2][0] = 0;  grid_five_rows_tall[2][1] = 0;  grid_five_rows_tall[2][2] = 0;  grid_five_rows_tall[2][3] = 0;
+        grid_five_rows_tall[3][0] = 0;  grid_five_rows_tall[3][1] = 0;  grid_five_rows_tall[3][2] = 0;  grid_five_rows_tall[3][3] = 0;
+        grid_five_rows_tall[4][0] = 0;  grid_five_rows_tall[4][1] = 0;  grid_five_rows_tall[4][2] = 3;  grid_five_rows_tall[4][3] = 0;
     }
 
     private void initialize_grid_three_rows_tall() {
@@ -128,5 +128,23 @@ public class PathUnitTest {
         path.moveSideways();
         assertThat(copy.resistance(), equalTo(15));
         assertThat(path.resistance(), equalTo(18));
+    }
+
+    @Test
+    public void when_resistance_exceeds_50_do_not_add_moves() {
+        Path path = new Path(grid_five_rows_tall , 1);
+        path.moveSideways();
+        path.moveSideways();
+        path.moveSideways();
+        assertThat(path.recallPositions(), equalTo(construct_positions_list(1,1)));
+    }
+
+    @Test
+    public void when_total_resistance_exceeds_50_do_not_add_to_total() {
+        Path path = new Path(grid_five_rows_tall , 1);
+        path.moveSideways();
+        path.moveUp();
+        path.moveDown();
+        assertThat(path.resistance(), equalTo(48));
     }
 }

@@ -12,6 +12,7 @@ public class Path {
     private int bottomPosition;
     private int resistance = 0;
     private int currentColumn = 2;
+    private boolean resistance_to_high = false;
 
     public Path(Integer[][] grid, int startRow) {
         resistance_grid = grid;
@@ -26,15 +27,25 @@ public class Path {
         bottomPosition = resistance_grid.length;
         this.resistance = original.resistance;
         this.currentColumn = original.currentColumn;
+        this.resistance_to_high = original.resistance_to_high;
     }
 
     public List<Integer> recallPositions() {
         return positions;
     }
 
-    private void add_new_resistance() {
-       resistance += resistance_grid[get_last_moved_to_position_on_path()-1][currentColumn-1];
-       ++currentColumn;
+    private boolean add_new_resistance_when_less_than_or_equal_to_50(int position) {
+        int new_resistance = resistance + resistance_grid[position-1][currentColumn-1];
+        if (new_resistance <= 50)
+       {
+           resistance = new_resistance;
+           ++currentColumn;
+           return true;
+       }
+       else {
+            resistance_to_high = true;
+            return false;
+        }
     }
 
     private int get_last_moved_to_position_on_path() {
@@ -44,20 +55,24 @@ public class Path {
     public void moveUp() {
         int nextPosition = (get_last_moved_to_position_on_path() == 1) ? bottomPosition
                                                                          : get_last_moved_to_position_on_path()-1;
-        positions.add(nextPosition);
-        add_new_resistance();
+        only_update_positions_if_less_than_or_equal_to_50(nextPosition);
     }
 
     public void moveDown() {
         int nextPosition = (get_last_moved_to_position_on_path() == bottomPosition) ? 1
                                                                                       : get_last_moved_to_position_on_path()+1;
-        positions.add(nextPosition);
-        add_new_resistance();
+        only_update_positions_if_less_than_or_equal_to_50(nextPosition);
     }
 
     public void moveSideways() {
-        positions.add(get_last_moved_to_position_on_path());
-        add_new_resistance();
+        only_update_positions_if_less_than_or_equal_to_50(get_last_moved_to_position_on_path());
+    }
+
+    public void only_update_positions_if_less_than_or_equal_to_50(int position) {
+        if (!resistance_to_high && add_new_resistance_when_less_than_or_equal_to_50(position))
+        {
+            positions.add(position);
+        }
     }
 
     public int resistance() {
