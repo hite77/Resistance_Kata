@@ -51,7 +51,6 @@ public class ComputeAllPaths {
         if (current_path.recallPositions().size() > bestPath.recallPositions().size() ||
                 (current_path.recallPositions().size() == grid[0].length && current_path.resistance() < bestPath.resistance()))
             bestPath = new Path(current_path);
-
     }
 
     public boolean done() {
