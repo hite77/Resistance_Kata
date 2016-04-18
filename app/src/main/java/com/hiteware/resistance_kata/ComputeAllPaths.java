@@ -11,8 +11,9 @@ public class ComputeAllPaths {
 
     public ComputeAllPaths(Integer[][] grid) {
         this.grid = grid;
-        base_two_counter = new Integer[1];
-        base_two_counter[0]=0;
+        base_two_counter = new Integer[2];
+        base_two_counter[1]=0;
+        base_two_counter[0]=1;
         calculate_next_path();
     }
 
@@ -21,12 +22,18 @@ public class ComputeAllPaths {
     }
 
     public void calculate_next_path() {
-        current_path = new Path(grid, 1);
-        if (base_two_counter[0] == 0) {
+        current_path = new Path(grid, base_two_counter[0]);
+        if (base_two_counter[1] == 0) {
             current_path.moveSideways();
         }
-        else
+        else if (base_two_counter[1] == 1)
             current_path.moveUp();
-        base_two_counter[0] = base_two_counter[0] + 1;
+        else
+            current_path.moveDown();
+        base_two_counter[1] = base_two_counter[1] + 1;
+        if (base_two_counter[1] > 2) {
+           base_two_counter[1] = 0;
+           base_two_counter[0] = 2;
+        }
     }
 }

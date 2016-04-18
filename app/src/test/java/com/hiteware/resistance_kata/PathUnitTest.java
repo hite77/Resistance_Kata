@@ -3,9 +3,6 @@ package com.hiteware.resistance_kata;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -37,40 +34,32 @@ public class PathUnitTest {
         grid_three_rows_tall[2][0] = 7; grid_three_rows_tall[2][1] = 8; grid_three_rows_tall[2][2] = 9;
     }
 
-    public List<Integer> construct_positions_list(Integer... args) {
-        List<Integer> positions = new ArrayList<>();
-        for (Integer arg : args) {
-            positions.add(arg);
-        }
-        return positions;
-    }
-
     @Test
     public void can_store_start_position_and_recall_position() {
         int row_position = 3;
         Path path = new Path(grid_five_rows_tall, row_position);
-        assertThat(path.recallPositions(), equalTo(construct_positions_list(row_position)));
+        assertThat(path.recallPositions(), equalTo(UtilityMethods.construct_list(row_position)));
     }
 
     @Test
     public void can_store_a_move_up_and_recall_positions() {
         Path path = new Path(grid_five_rows_tall, 5);
         path.moveUp();
-        assertThat(path.recallPositions(), equalTo(construct_positions_list(5,4)));
+        assertThat(path.recallPositions(), equalTo(UtilityMethods.construct_list(5,4)));
     }
 
     @Test
     public void can_wrap_around_the_top_to_bottom_position() {
         Path path = new Path(grid_five_rows_tall, 1);
         path.moveUp();
-        assertThat(path.recallPositions(), equalTo(construct_positions_list(1,5)));
+        assertThat(path.recallPositions(), equalTo(UtilityMethods.construct_list(1,5)));
     }
 
     @Test
     public void can_store_move_down_and_recall_position() {
         Path path = new Path(grid_five_rows_tall, 2);
         path.moveDown();
-        assertThat(path.recallPositions(), equalTo(construct_positions_list(2,3)));
+        assertThat(path.recallPositions(), equalTo(UtilityMethods.construct_list(2,3)));
     }
 
     @Test
@@ -78,7 +67,7 @@ public class PathUnitTest {
         Path path = new Path(grid_five_rows_tall, 4);
         path.moveDown();
         path.moveDown();
-        assertThat(path.recallPositions(), equalTo(construct_positions_list(4,5,1)));
+        assertThat(path.recallPositions(), equalTo(UtilityMethods.construct_list(4,5,1)));
     }
 
     @Test
@@ -86,14 +75,14 @@ public class PathUnitTest {
         Path path = new Path(grid_three_rows_tall, 3);
         path.moveDown();
         path.moveUp();
-        assertThat(path.recallPositions(), equalTo(construct_positions_list(3,1,3)));
+        assertThat(path.recallPositions(), equalTo(UtilityMethods.construct_list(3,1,3)));
     }
 
     @Test
     public void can_move_sideways() {
         Path path = new Path(grid_three_rows_tall, 2);
         path.moveSideways();
-        assertThat(path.recallPositions(), equalTo(construct_positions_list(2, 2)));
+        assertThat(path.recallPositions(), equalTo(UtilityMethods.construct_list(2, 2)));
     }
 
     @Test
@@ -102,7 +91,7 @@ public class PathUnitTest {
         original.moveDown();
         Path copy = new Path(original);
         original.moveDown();
-        assertThat(copy.recallPositions(), equalTo(construct_positions_list(3, 1)));
+        assertThat(copy.recallPositions(), equalTo(UtilityMethods.construct_list(3, 1)));
     }
 
     @Test
@@ -136,7 +125,7 @@ public class PathUnitTest {
         path.moveSideways();
         path.moveSideways();
         path.moveSideways();
-        assertThat(path.recallPositions(), equalTo(construct_positions_list(1,1)));
+        assertThat(path.recallPositions(), equalTo(UtilityMethods.construct_list(1,1)));
     }
 
     @Test
