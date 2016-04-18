@@ -20,12 +20,12 @@ public class ComputeAllPaths {
     }
 
     public void calculate_next_path() {
-        Integer[] path_branches = base_two_counter.currentCount();
-        current_path = new Path(grid, path_branches[0]);
-        if (path_branches[1] == 0) {
+        Integer[] movementCounter = base_two_counter.currentCount();
+        current_path = new Path(grid, movementCounter[0]);
+        if (movementCounter[1] == 0) {
             current_path.moveSideways();
         }
-        else if (path_branches[1] == 1)
+        else if (movementCounter[1] == 1)
             current_path.moveUp();
         else
             current_path.moveDown();

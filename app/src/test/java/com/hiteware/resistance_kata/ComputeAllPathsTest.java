@@ -49,7 +49,7 @@ public class ComputeAllPathsTest {
     }
 
     @Test
-    public void path_should_be_first_row_straight_across() {
+    public void test_for_moving_sideways_on_initial_counter() {
         ComputeAllPaths computeAllPaths = new ComputeAllPaths(grid_three_by_two);
         Path current_path = computeAllPaths.getCurrentPath();
         Path expected_path = new Path(grid_three_by_two,1);
@@ -58,7 +58,7 @@ public class ComputeAllPathsTest {
     }
 
     @Test
-    public void once_path_is_incremented_it_will_be_on_first_row_going_up() {
+    public void test_for_row_going_up() {
         ComputeAllPaths computeAllPaths = new ComputeAllPaths(grid_three_by_two);
         computeAllPaths.calculate_next_path();
         Path current_path = computeAllPaths.getCurrentPath();
@@ -68,7 +68,7 @@ public class ComputeAllPathsTest {
     }
 
     @Test
-    public void third_path_will_still_be_first_row_going_down() {
+    public void test_for_row_going_down() {
         ComputeAllPaths computeAllPaths = new ComputeAllPaths(grid_three_by_two);
         computeAllPaths.calculate_next_path();
         computeAllPaths.calculate_next_path();
