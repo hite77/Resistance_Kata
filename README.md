@@ -29,3 +29,7 @@ And using that counter to insert a preset counter to test moves being made on pa
 Started running out of time, would normally have mocked the object, and used Dagger to inject for tests a mock counter.
 
 I have this code in my github, along with HalfWayThere, released Android App to the Play Store.  It was Test Driven, with mockito, Dagger, Robolectric, custom GUI component.
+
+Also I would like to remove magic numbers from as many places as I can....
+
+It found an equivalent solution.  So I changed the expected to match that path.... for given two.
