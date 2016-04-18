@@ -127,6 +127,41 @@ public class ComputeAllPathsTest {
 
     @Test
     public void best_path_will_pick_the_most_moves_made_if_both_are_no_path_to_edge() {
-        //definition of no changed... I think.... if resistance_too_high, then it is too big....
+        Integer[][] grid = new Integer[2][3];
+        grid[0][0] = 20; grid[0][1] = 20; grid[0][2] = 15;
+        grid[1][0] = 0;  grid[1][1] = 35; grid[1][2] = 15;
+        ComputeAllPaths computeAllPaths = new ComputeAllPaths(grid, UtilityMethods.construct_array(1,0,2));
+        computeAllPaths.calculate_next_path();
+        Path best_path = computeAllPaths.getBestPath();
+        Path expected_path = new Path(grid,1);
+        expected_path.moveSideways();
+        expected_path.moveDown();
+        assertTrue(paths_are_the_same(best_path, expected_path));
+    }
+
+    @Test
+    public void best_path_will_pick_row_across_over_one_that_does_not_make_it() {
+        Integer[][] grid = new Integer[2][2];
+        grid[0][0] = 20; grid[0][1] = 35;
+        grid[1][0] = 0;  grid[1][1] = 10;
+        ComputeAllPaths computeAllPaths = new ComputeAllPaths(grid);
+        computeAllPaths.calculate_next_path();
+        Path best_path = computeAllPaths.getBestPath();
+        Path expected_path = new Path(grid,1);
+        expected_path.moveUp();
+        assertTrue(paths_are_the_same(best_path, expected_path));
+    }
+
+    @Test
+    public void best_of_completed_paths_will_be_chosen() {
+        Integer[][] grid = new Integer[2][2];
+        grid[0][0] = 20; grid[0][1] = 25;
+        grid[1][0] = 0;  grid[1][1] = 10;
+        ComputeAllPaths computeAllPaths = new ComputeAllPaths(grid);
+        computeAllPaths.calculate_next_path();
+        Path best_path = computeAllPaths.getBestPath();
+        Path expected_path = new Path(grid,1);
+        expected_path.moveUp();
+        assertTrue(paths_are_the_same(best_path, expected_path));
     }
 }

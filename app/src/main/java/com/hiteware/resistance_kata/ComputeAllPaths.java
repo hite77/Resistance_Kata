@@ -13,6 +13,7 @@ public class ComputeAllPaths {
 
     public ComputeAllPaths(Integer[][] grid) {
         this.grid = grid;
+        bestPath = new Path(grid,1);
         base_two_counter = new BaseTwoCounter(grid.length, grid[0].length);
         calculate_next_path();
     }
@@ -46,7 +47,11 @@ public class ComputeAllPaths {
         }
         base_two_counter.increment();
         done = base_two_counter.isDone();
-        bestPath = new Path(current_path);
+
+        if (current_path.recallPositions().size() > bestPath.recallPositions().size() ||
+                (current_path.recallPositions().size() == grid[0].length && current_path.resistance() < bestPath.resistance()))
+            bestPath = new Path(current_path);
+
     }
 
     public boolean done() {
