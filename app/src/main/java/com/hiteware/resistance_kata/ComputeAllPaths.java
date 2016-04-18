@@ -5,15 +5,13 @@ package com.hiteware.resistance_kata;
  */
 public class ComputeAllPaths {
 
-    private Integer[] base_two_counter;
+    private BaseTwoCounter base_two_counter;
     private Integer[][] grid;
     private Path current_path;
 
     public ComputeAllPaths(Integer[][] grid) {
         this.grid = grid;
-        base_two_counter = new Integer[2];
-        base_two_counter[1]=0;
-        base_two_counter[0]=1;
+        base_two_counter = new BaseTwoCounter(grid.length, grid[0].length);
         calculate_next_path();
     }
 
@@ -22,18 +20,15 @@ public class ComputeAllPaths {
     }
 
     public void calculate_next_path() {
-        current_path = new Path(grid, base_two_counter[0]);
-        if (base_two_counter[1] == 0) {
+        Integer[] path_branches = base_two_counter.currentCount();
+        current_path = new Path(grid, path_branches[0]);
+        if (path_branches[1] == 0) {
             current_path.moveSideways();
         }
-        else if (base_two_counter[1] == 1)
+        else if (path_branches[1] == 1)
             current_path.moveUp();
         else
             current_path.moveDown();
-        base_two_counter[1] = base_two_counter[1] + 1;
-        if (base_two_counter[1] > 2) {
-           base_two_counter[1] = 0;
-           base_two_counter[0] = 2;
-        }
+        base_two_counter.increment();
     }
 }
