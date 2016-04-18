@@ -17,8 +17,14 @@ public class Path {
     public Path(Integer[][] grid, int startRow) {
         resistance_grid = grid;
         bottomPosition = resistance_grid.length;
-        positions.add(startRow);
-        resistance = resistance_grid[startRow-1][0];
+        if (resistance_grid[startRow-1][0] <= 50) {
+            positions.add(startRow);
+            resistance = resistance_grid[startRow - 1][0];
+        }
+        else
+        {
+            resistance_too_high = true;
+        }
     }
 
     public Path(Path original) {
@@ -49,6 +55,8 @@ public class Path {
     }
 
     private int get_last_moved_to_position_on_path() {
+        if (positions.size() == 0)
+            return 0;
         return positions.get(positions.size()-1);
     }
 
@@ -80,6 +88,6 @@ public class Path {
     }
 
     public boolean resistance_too_high() {
-        return !resistance_too_high;
+        return resistance_too_high;
     }
 }

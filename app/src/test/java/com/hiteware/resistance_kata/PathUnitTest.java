@@ -3,6 +3,8 @@ package com.hiteware.resistance_kata;
 import org.junit.Before;
 import org.junit.Test;
 
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -138,20 +140,42 @@ public class PathUnitTest {
     }
 
     @Test
-    public void when_total_resistance_is_50_or_less_and_has_made_it_across_path_returns_true() {
+    public void when_total_resistance_is_50_or_less_and_has_made_it_across_path_returns_false() {
         Path path = new Path(grid_five_rows_tall, 1);
         path.moveSideways();
         path.moveDown();
         path.moveUp();
-        assertThat(path.resistance_too_high(), equalTo(true));
+        assertFalse(path.resistance_too_high());
     }
 
     @Test
-    public void when_total_resistance_is_greater_than_50_and_does_not_make_it_returns_false() {
+    public void when_total_resistance_is_greater_than_50_and_does_not_make_it_returns_true() {
         Path path = new Path(grid_five_rows_tall, 1);
         path.moveSideways();
         path.moveUp();
         path.moveDown();
-        assertThat(path.resistance_too_high(), equalTo(false));
+        assertTrue(path.resistance_too_high());
+    }
+
+    @Test
+    public void when_path_is_one_row_and_first_cell_is_over_fifty_should_be_no_moves_and_over_fify_indicated() {
+        Integer[][] grid = new Integer[1][1];
+        grid[0][0] = 53;
+        Path path = new Path(grid, 1);
+        assertTrue(path.resistance_too_high());
+        assertThat(path.resistance(), equalTo(0));
+        assertThat(path.recallPositions().size(), equalTo(0));
+    }
+
+    @Test
+    public void when_first_cell_is_too_much_resistance_it_does_not_move_over() {
+        Integer[][] grid = new Integer[1][2];
+        grid[0][0] = 53;
+        grid[0][1] = 1;
+        Path path = new Path(grid, 1);
+        path.moveSideways();
+        assertTrue(path.resistance_too_high());
+        assertThat(path.resistance(), equalTo(0));
+        assertThat(path.recallPositions().size(), equalTo(0));
     }
 }
