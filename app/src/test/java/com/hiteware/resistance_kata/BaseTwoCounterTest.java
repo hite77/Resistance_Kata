@@ -2,6 +2,8 @@ package com.hiteware.resistance_kata;
 
 import org.junit.Test;
 
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -45,5 +47,28 @@ public class BaseTwoCounterTest {
         BaseTwoCounter counter = new BaseTwoCounter(2,UtilityMethods.construct_array(1,2,2));
         counter.increment();
         assertThat(counter.currentCount(), equalTo(UtilityMethods.construct_array(2,0,0)));
+    }
+
+    @Test
+    public void row_can_be_incremented_higher_than_two() {
+        BaseTwoCounter counter = new BaseTwoCounter(3,UtilityMethods.construct_array(2,2,2));
+        counter.increment();
+        assertThat(counter.currentCount(), equalTo(UtilityMethods.construct_array(3,0,0)));
+    }
+
+    @Test
+    public void once_rows_are_exceeded_is_done_will_be_true() {
+        BaseTwoCounter counter = new BaseTwoCounter(3,UtilityMethods.construct_array(3,2,2));
+        counter.increment();
+        assertTrue(counter.isDone());
+        assertThat(counter.currentCount(), equalTo(UtilityMethods.construct_array(4,0,0)));
+    }
+
+    @Test
+    public void while_more_paths_are_available_is_done_will_be_false() {
+        BaseTwoCounter counter = new BaseTwoCounter(4,UtilityMethods.construct_array(3,2,2));
+        counter.increment();
+        assertFalse(counter.isDone());
+        assertThat(counter.currentCount(), equalTo(UtilityMethods.construct_array(4,0,0)));
     }
 }
