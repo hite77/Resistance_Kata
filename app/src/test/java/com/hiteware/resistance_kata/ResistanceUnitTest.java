@@ -178,9 +178,21 @@ public class ResistanceUnitTest {
         assertThat(path, equalTo(expected_path));
     }
 
-    public void worst_case_scenario_largest_grid_computes_in_timely_manner() {
-       int rows = 10;
-       int columns = 100;
 
-    }
+    // So it is trying to calculate 10* 99 2's, which is a really huge amount of possibilities.
+//    @Test
+//    public void worst_case_scenario_largest_grid_computes_in_timely_manner() {
+//       int rows = 10;
+//       int columns = 100;
+//
+//        Random rand = new Random();
+//
+//        Integer[][] large_grid = new Integer[rows][columns];
+//        for (int row=0; row < 10; row++)
+//            for (int column=0; column < 100; column++)
+//                large_grid[row][column]= rand.nextInt((8 - (-8)) + 1) + (-8);
+//
+//        new Resistance(large_grid);
+//
+//    }
 }
