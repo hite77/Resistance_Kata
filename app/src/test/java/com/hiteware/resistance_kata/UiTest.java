@@ -53,4 +53,33 @@ public class UiTest {
         assertThat(((TextView)CreatedActivity.findViewById(R.id.Path)).getText().toString(), equalTo("[1, 2, 3, 4, 4, 5]"));
     }
 
+    @Test
+    public void ClickingOnSolutionTwoGeneratesTheSolution()
+    {
+        CreatedActivity.findViewById(R.id.solution2_button).callOnClick();
+        assertThat(((TextView)CreatedActivity.findViewById(R.id.textView1)).getText().toString(), equalTo("[3, 4, 1, 2, 8, 6]"));
+        assertThat(((TextView)CreatedActivity.findViewById(R.id.textView2)).getText().toString(), equalTo("[6, 1, 8, 2, 7, 4]"));
+        assertThat(((TextView)CreatedActivity.findViewById(R.id.textView3)).getText().toString(), equalTo("[5, 9, 3, 9, 9, 5]"));
+        assertThat(((TextView)CreatedActivity.findViewById(R.id.textView4)).getText().toString(), equalTo("[8, 4, 1, 3, 2, 6]"));
+        assertThat(((TextView)CreatedActivity.findViewById(R.id.textView5)).getText().toString(), equalTo("[3, 7, 2, 1, 2, 3]"));
+
+        assertThat(((TextView)CreatedActivity.findViewById(R.id.Path_Completed)).getText().toString(), equalTo("Yes"));
+        assertThat(((TextView)CreatedActivity.findViewById(R.id.Resistance)).getText().toString(), equalTo("11"));
+        assertThat(((TextView)CreatedActivity.findViewById(R.id.Path)).getText().toString(), equalTo("[1, 2, 1, 5, 5, 5]"));
+    }
+
+    @Test
+    public void ClickingOnSolutionThreeGeneratesTheSolution()
+    {
+        CreatedActivity.findViewById(R.id.solution3_button).callOnClick();
+        assertThat(((TextView)CreatedActivity.findViewById(R.id.textView1)).getText().toString(), equalTo("[19, 10, 19, 10, 19]"));
+        assertThat(((TextView)CreatedActivity.findViewById(R.id.textView2)).getText().toString(), equalTo("[21, 23, 20, 19, 12]"));
+        assertThat(((TextView)CreatedActivity.findViewById(R.id.textView3)).getText().toString(), equalTo("[20, 12, 20, 11, 10]"));
+        assertThat(((TextView)CreatedActivity.findViewById(R.id.textView4)).getText().toString(), equalTo(""));
+        assertThat(((TextView)CreatedActivity.findViewById(R.id.textView5)).getText().toString(), equalTo(""));
+
+        assertThat(((TextView)CreatedActivity.findViewById(R.id.Path_Completed)).getText().toString(), equalTo("No"));
+        assertThat(((TextView)CreatedActivity.findViewById(R.id.Resistance)).getText().toString(), equalTo("48"));
+        assertThat(((TextView)CreatedActivity.findViewById(R.id.Path)).getText().toString(), equalTo("[1, 1, 1]"));
+    }
 }
