@@ -82,4 +82,13 @@ public class UiTest {
         assertThat(((TextView)CreatedActivity.findViewById(R.id.Resistance)).getText().toString(), equalTo("48"));
         assertThat(((TextView)CreatedActivity.findViewById(R.id.Path)).getText().toString(), equalTo("[1, 1, 1]"));
     }
+
+    @Test
+    public void ClickingBetweenSolutionOneAndSolutionThreeCLearsTheFourthAndFifthLine()
+    {
+        CreatedActivity.findViewById(R.id.solution1_button).callOnClick();
+        CreatedActivity.findViewById(R.id.solution3_button).callOnClick();
+        assertThat(((TextView)CreatedActivity.findViewById(R.id.textView4)).getText().toString(), equalTo(""));
+        assertThat(((TextView)CreatedActivity.findViewById(R.id.textView5)).getText().toString(), equalTo(""));
+    }
 }
