@@ -33,3 +33,8 @@ I have this code in my github, along with HalfWayThere, released Android App to 
 Also I would like to remove magic numbers from as many places as I can....
 
 It found an equivalent solution.  So I changed the expected to match that path.... for given two.
+
+Worst Case is taking quite awhile... so for large values of columns, will be very slow... I would likely redesign the path to choose lowest number, if there is a duplicate resistance, then it would create a separate path, and evaluate the next positions lowest value.
+
+I would rewrite the algorithm to pick lowest number, and move across.  Using recursion if the resistance was equal more than one way.
+
